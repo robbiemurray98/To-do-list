@@ -1,2 +1,4 @@
 import "./style.css";
-console.log('hello')
+import { createToDo } from "./create";
+
+createToDo();
