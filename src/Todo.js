@@ -1,8 +1,5 @@
 
-
-
-export const createToDo = function(){
-    class toDo {
+    export class toDo {
     constructor(title, desc, dueDate, priority, notes){
         this.title = title;
         this.desc = desc;
@@ -12,7 +9,7 @@ export const createToDo = function(){
     }
 }
 
-const firstItem = new toDo('clean', 'whole house', 'sunday', 1, 'get rid of norms hair!')
-console.log(firstItem);
 
-}
+    
+
+
