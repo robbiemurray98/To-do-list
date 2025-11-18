@@ -58,13 +58,31 @@ export const setStyles = () => {
     const projectList = document.querySelector('#project-list');
     projectList.innerHTML = '';
 
+    const inbox = document.createElement('li');
+    inbox.classList.add('project-select');
+    inbox.textContent = 'Inbox';
+    inbox.style.fontWeight = 'bold';
+    projectList.appendChild(inbox);
+
+
+
     projects.forEach(project => {
         for (let key in project){
-        const listItem = document.createElement('li');
-        listItem.classList.add('project-select')
-        const projectValue = project[key];
-        listItem.textContent = projectValue;
-        projectList.appendChild(listItem);
+            if(project[key] !== 'To Do'){
+            const listItemContainer = document.createElement('li');
+            listItemContainer.classList.add('project-list-item');
+            const listItem = document.createElement('p');
+            const deleteProject = document.createElement('button');
+            deleteProject.textContent = '-';
+            deleteProject.classList.add('delete-project-button');
+            listItem.classList.add('project-select')
+            const projectValue = project[key];
+            listItem.textContent = projectValue;
+            listItemContainer.appendChild(listItem);
+            listItemContainer.appendChild(deleteProject);
+            projectList.appendChild(listItemContainer);
+            }
+        
 
         }
 
@@ -131,6 +149,8 @@ export const setStyles = () => {
 }
     
 
+
+// click on inbox header becomes todo and all its todos are displayed
 
 
     

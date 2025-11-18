@@ -4,7 +4,7 @@ import { displayProject } from "./DOMhandler";
 import { handleAddTodo } from "./TodoManager";
 import { setStyles } from "./DOMhandler";
 import { deleteToDo } from "./TodoManager";
-
+import { deleteProject } from "./TodoManager";
 
 document.addEventListener('DOMContentLoaded', () => {
     const toDoContainer = document.querySelector('#to-do-list');
@@ -22,8 +22,13 @@ projectList.addEventListener('click', (event) => {
     if(event.target.classList.contains('project-select')){
         // populate project display
         // event.target.value
-        const header = document.querySelector('#header');
-        header.textContent = event.target.textContent;
+        if(event.target.textContent === 'Inbox'){
+            header.textContent = 'To Do';
+        } else {
+            const header = document.querySelector('#header');
+            header.textContent = event.target.textContent;
+        }
+        
         setStyles();
     }
 })
@@ -88,7 +93,35 @@ showTask.addEventListener('click', () => {
 })
 
 
+// add minus sign to delete project which opens modal asking if you're sure you want to delete
+// cancel or delete button
+// if clicked delete all todos that are of that project
 
+const deleteProjectModal = document.querySelector('#delete-project-modal');
+
+const confirmDeleteProjectButton = document.querySelector('#confirm-delete-project');
+const cancelDeleteProjectButton = document.querySelector('#cancel-delete-project');
+
+
+projectList.addEventListener('click', (event) => {
+    if(event.target.classList.contains('delete-project-button')){
+        const project = event.target.previousElementSibling;
+        const projectName = project.textContent;
+        deleteProjectModal.showModal();
+
+        cancelDeleteProjectButton.addEventListener('click', () => {
+            deleteProjectModal.close();
+        })
+
+        confirmDeleteProjectButton.addEventListener('click', () => {
+            deleteProject(projectName);
+            deleteProjectModal.close();
+        })
+
+
+        
+    }
+})
 
 
 

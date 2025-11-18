@@ -28,10 +28,10 @@ const saveProject = (project) => {
     localStorage.setItem('myProjects', projectsJSON)
 }
 
+
 export const handleAddProject = () => {
     const projectInput = document.querySelector('#new-project-input');
     const projectValue = projectInput.value;
-
     const newProject = new project(projectValue);
     const projects = loadProjects();
     projects.push(newProject);
@@ -96,4 +96,18 @@ export const deleteToDo = (idToDelete) => {
 }
 
 
+export const deleteProject = (projectName) => {
+    const projects = loadProjects();
+    const todos = loadToDos();
+
+    const newProjects = projects.filter(project => project.projectInput !== projectName);
+
+    const newToDos = todos.filter(todo => todo.project !== projectName);
+
+    saveProject(newProjects);
+
+    saveToDos(newToDos);
+
+    setStyles();
+}
 

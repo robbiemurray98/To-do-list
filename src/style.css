@@ -52,33 +52,42 @@ h3{
 
 #project-container > ul{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     padding: 0;
+    gap: 1rem;
 
 }
 
 #project-container > ul > li{
     list-style: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+
 }
 
+#project-container > ul > li > button{
+    border: none;
+    padding: 1px 4px;
+    position: absolute;
+    right: 20px;
+    background-color: white;
+    font-weight: bolder;
+    display: none;
+}
+
+#project-list > li:hover .delete-project-button{
+    display: block;
+    color: red;
+}
 
 #add-to-do-button{
     margin-left: 4px;
 }
 
-/* modal */
-/* .modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0; 
-    width: 100%;
-    height: 100%;
-} */
 
 .modal-content{
     margin: auto;
@@ -140,3 +149,6 @@ dialog > div {
     width: fit-content;
     justify-self: center;
 }
+
+
+/* add on hover over projects show delete minus */
