@@ -1,60 +1,99 @@
 import { toDo } from "./Todo";
+import { createDate, setStyles, checkDateFormat } from "./DOMhandler";
+import { project } from "./project";
 
 
 
-
-const toDoArray = [];
-
-let nextId = 0;
-const addId = () => {
-    return nextId++;
+export const loadToDos = () => {
+    const savedToDosJSON = localStorage.getItem('myToDos') || '[]';
+    return JSON.parse(savedToDosJSON);
 }
 
-export const addToDo = function(title, desc, dueDate, priority, notes) {
+const saveToDos = (toDoList) => {
+    const todosJSON = JSON.stringify(toDoList);
 
-    const newToDo = new toDo(title, desc, dueDate, priority, notes);
+    localStorage.setItem('myToDos', todosJSON);
 
-    newToDo.id = addId();
-    console.log(nextId);
-
-    toDoArray.push(newToDo);
-
-    console.log(toDoArray);
-
-    return newToDo;
+}   
 
 
-
+export const loadProjects = () => {
+    const savedProjects = localStorage.getItem('myProjects') || '[]';
+    return JSON.parse(savedProjects);
 }
 
 
-export const deleteToDo = (indexToDelete) => {
-    const index = toDoArray.findIndex(obj => obj.id == indexToDelete);
+const saveProject = (project) => {
+    const projectsJSON = JSON.stringify(project);
+    localStorage.setItem('myProjects', projectsJSON)
+}
 
-    if(index !== -1) {
-        toDoArray.splice(index, 1);
+export const handleAddProject = () => {
+    const projectInput = document.querySelector('#new-project-input');
+    const projectValue = projectInput.value;
+
+    const newProject = new project(projectValue);
+    const projects = loadProjects();
+    projects.push(newProject);
+    saveProject(projects);
+}
+
+
+export const handleAddTodo = () => {
+    const title = document.querySelector('#title');
+    const desc = document.querySelector('#desc');
+    const dueDate = document.querySelector('#due-date');
+    const priority = document.querySelector('#priority');
+    const notes = document.querySelector('#note');
+    const project = document.querySelector('#header');
+
+    const titleText = title.value;
+    const descText = desc.value;
+    const dueDateText = dueDate.value;
+    const priorityText = priority.value;
+    const notesText = notes.value;
+    const projectText = project.textContent;
+
+
+    if(titleText.trim() === '' || descText.trim() === ''
+        || dueDateText.trim() === '' || priorityText.trim() === ''){
+            return;
     }
 
-    console.log(`${index} <<`)
+    if(checkDateFormat(dueDateText) === false){
+            return
+        }
+    
+    const dueDateInitial = createDate(dueDateText);
+
+    const newToDo = new toDo(titleText, descText, dueDateInitial, priorityText, notesText, projectText)
+    newToDo.id = crypto.randomUUID();
+
+    const todos = loadToDos();
+    todos.push(newToDo);
+    saveToDos(todos);
+
+    setStyles();
+
+    title.value = '';
+    desc.value = '';
+    dueDate.value = '';
+    priority.value = '';
+    notes.value = '';
+}
+
+
+export const deleteToDo = (idToDelete) => {
+
+    const todos = loadToDos();
+
+    const newToDos = todos.filter(todo => todo.id !== idToDelete);
+
+    saveToDos(newToDos);
+
+    setStyles();
 
 }
 
 
-    
 
-// add id to to-dos?
-// add function that iterates through numbers?
-// export const deleteToDo = (object) => {
-
-// }
-
-export const getToDoArray = () => toDoArray;
-
-
-console.log(toDoArray);
-
-
-// create array to hold toDo objects
-// create function that creates a new todo object then pushes it into the array return 
-// return a copy of the state of the array
-// add other logical functions such as delete todo toggle complete

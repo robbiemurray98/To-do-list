@@ -27,29 +27,29 @@
     <dialog id="task-modal">
         <div>
             <button class="close-task">X</button>
-            <form action="">
+            <form action="post">
                 <legend><h2>Add Task</h2></legend>
                 <div id="form-input-container">
                     <div>
                         <div>
                             <label for="title">Title</label>
-                            <input type="text" id="title">
+                            <input type="text" id="title" required>
                         </div>
                         <div>
                             <label for="desc">Description</label>
-                            <textarea name="" id="desc"></textarea>
+                            <textarea name="" id="desc" required></textarea>
                         </div>
                     </div>
 
                     <div>
                         <div>
                             <label for="due-date">Due Date</label>
-                            <input type="text" id="due-date" pattern="/^\d{2}\/\d{2}\/\d{4}$/">
+                            <input type="text" id="due-date" pattern="/^\d{2}\/\d{2}\/\d{4}$/" required>
                             <p>XX/XX/XXXX</p>
                         </div>
                         <div>
                             <label for="priority">Priority</label>
-                            <input type="text" id="priority">
+                            <input type="text" id="priority" required>
                         </div>
                         <div>
                             <label for="note">Notes</label>
@@ -59,8 +59,9 @@
                     
                     
                 </div>
+            <button id="show-task" type="submit">Add</button>
+
             </form>
-            <button id="show-task">Add</button>
         </div>
     </dialog>
 

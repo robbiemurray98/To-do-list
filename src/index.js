@@ -1,12 +1,32 @@
 import "./style.css";
-// import { createToDo } from "./Todo";
-import { dom, renderToDo } from "./DOMhandler";
 import { createProject } from "./DOMhandler";
 import { displayProject } from "./DOMhandler";
-import { addToDo } from "./TodoManager";
-import { createDate } from "./DOMhandler";
-import { checkDateFormat } from "./DOMhandler";
+import { handleAddTodo } from "./TodoManager";
+import { setStyles } from "./DOMhandler";
+import { deleteToDo } from "./TodoManager";
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toDoContainer = document.querySelector('#to-do-list');
+
+    toDoContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-btn')) {
+            deleteToDo(event.target.dataset.id);
+        }
+    })
+    setStyles();
+})
+
+const projectList = document.querySelector('#project-list');
+projectList.addEventListener('click', (event) => {
+    if(event.target.classList.contains('project-select')){
+        // populate project display
+        // event.target.value
+        const header = document.querySelector('#header');
+        header.textContent = event.target.textContent;
+        setStyles();
+    }
+})
 
 
 const projectModal = document.querySelector('#project-modal');
@@ -61,44 +81,16 @@ window.addEventListener('click', () => {
 
 const showTask = document.querySelector('#show-task');
 
+
 showTask.addEventListener('click', () => {
-    const title = document.querySelector('#title');
-    const desc = document.querySelector('#desc');
-    const dueDate = document.querySelector('#due-date');
-    const priority = document.querySelector('#priority');
-    const notes = document.querySelector('#note')
-
-    const titleValue = title.value;
-    const descValue = desc.value;
-    const dueDateValue = dueDate.value;
-    const priorityValue = priority.value;
-    const notesValue = notes.value;
-
-
-    if(checkDateFormat(dueDateValue) === false){
-        return
-    }
-
-    const dueDateInitial = createDate(dueDateValue);
-
-
-    const newToDo = addToDo(titleValue, descValue, dueDateInitial, priorityValue, notesValue);
-    renderToDo(newToDo);
-});
+    handleAddTodo();
+    setStyles();
+})
 
 
 
 
 
 
-
-
-
-// adds event listener
-
-
-
-
-// if notes class name is equal to 
 
 
