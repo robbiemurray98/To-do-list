@@ -1,6 +1,6 @@
 import { handleAddProject, loadProjects, loadToDos } from "./TodoManager";
 import { format } from "date-fns";
-
+import { minusIcon } from "./svg";
 
 
 export const createDate = (dueDate) => {
@@ -46,7 +46,33 @@ export const displayProject = (input) => {
     toDoList.textContent = '';
 }
 
+export const checkProjectValue = (newProjectName) => {
+    const projects = loadProjects();
 
+    // projects.forEach(project => {
+    //     for(let key in project){
+    //         if(project[key] === newProjectName){
+    //             // console.log(project[key]);
+    //             // console.log(newProjectName);
+    //             // console.log('true')
+    //             return true;
+    //         }
+    //     }
+        
+    // })
+
+    return projects.some(project => {
+        return Object.values(project).some(value => value === newProjectName);
+    })
+}
+
+export const projectNameError = (projectName) => {
+    const container = document.querySelector('#project-modal-container');
+    const p = document.createElement('p');
+    p.id = 'project-error'
+    p.textContent = `A project named "${projectName}" already exists. Please choose a different name.`
+    container.appendChild(p);
+}
 
 export const setStyles = () => {
     const projectElement = document.querySelector('#header');
@@ -59,7 +85,7 @@ export const setStyles = () => {
     projectList.innerHTML = '';
 
     const inbox = document.createElement('li');
-    inbox.classList.add('project-select');
+    inbox.classList.add('project-list-item');
     inbox.textContent = 'Inbox';
     inbox.style.fontWeight = 'bold';
     projectList.appendChild(inbox);
@@ -73,12 +99,13 @@ export const setStyles = () => {
             listItemContainer.classList.add('project-list-item');
             const listItem = document.createElement('p');
             const deleteProject = document.createElement('button');
-            deleteProject.textContent = '-';
+            deleteProject.innerHTML = minusIcon;
             deleteProject.classList.add('delete-project-button');
             listItem.classList.add('project-select')
             const projectValue = project[key];
             listItem.textContent = projectValue;
             listItemContainer.appendChild(listItem);
+            // deleteProject.appendChild(divInButton)
             listItemContainer.appendChild(deleteProject);
             projectList.appendChild(listItemContainer);
             }

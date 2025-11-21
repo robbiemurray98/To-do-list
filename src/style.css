@@ -1,6 +1,8 @@
 *{
     margin: 0;
+    font-family: "Roboto", sans-serif;
 }
+
 
 h1{
     text-align: center;
@@ -36,14 +38,13 @@ h3{
 #project-container{
     border-right: 2px solid black;
     height: 100vh;
- 
+    background-color: rgb(187, 146, 69, 0.1);
 }
 
 #project-container > div:first-child{
     display: flex;
-    margin-top: 5px;
+    margin: 5px;
     padding: 2px;
-    border-bottom: 1px solid gray;
     position: relative;
     display: flex;
     justify-content: center;
@@ -56,7 +57,7 @@ h3{
     align-items: center;
     flex-direction: column;
     padding: 0;
-    gap: 1rem;
+    /* gap: .5rem; */
 
 }
 
@@ -64,24 +65,45 @@ h3{
     list-style: none;
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     position: relative;
-
+    padding: .5rem 0;
 }
+
+#project-container > ul > li:first-child{
+    border: 1px solid black;
+    padding: 5px 0;
+}   
 
 #project-container > ul > li > button{
+    display: none;
     border: none;
-    padding: 1px 4px;
     position: absolute;
     right: 20px;
-    background-color: white;
-    font-weight: bolder;
-    display: none;
+    border-radius: 25px;
+    padding: 3px;
 }
 
-#project-list > li:hover .delete-project-button{
+.delete-project-button > svg{
+    pointer-events: none;
+}
+
+#project-list > li:hover > .delete-project-button{
     display: block;
-    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 215, 140);
+
+}
+
+
+
+#project-list > li:hover{
+    background-color: rgba(97, 108, 132, 0.271);
+    /* background-color: brown; */
+    /* width: 100%; */
 }
 
 #add-to-do-button{
@@ -94,7 +116,11 @@ h3{
 }
 
 #project-button{
-    margin-left: 5px;
+    margin-left: 10px;
+    background-color: rgb(253, 212, 135);
+    height: 20px;
+    border: none;
+    border-radius: 25px;
 } 
 
 
@@ -128,6 +154,11 @@ dialog > div {
 
 #task-button{
     margin: 10px;
+    border: none;
+    padding: 5px;
+    background-color: rgb(255, 226, 171);
+    font-weight: 300;
+    border-radius: 5px;
 }
 
 #form-input-container > div > div{
@@ -149,6 +180,7 @@ dialog > div {
     width: fit-content;
     justify-self: center;
 }
+
 
 
 /* add on hover over projects show delete minus */
