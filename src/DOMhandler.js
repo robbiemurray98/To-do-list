@@ -1,6 +1,6 @@
 import { handleAddProject, loadProjects, loadToDos } from "./TodoManager";
 import { format } from "date-fns";
-import { minusIcon } from "./svg";
+import { minusIcon, deleteIcon, expandIcon } from "./svg";
 
 
 export const createDate = (dueDate) => {
@@ -118,6 +118,21 @@ export const setStyles = () => {
 
     toDoContainer.innerHTML = '';
 
+    const toDoList = document.querySelector('#to-do-list');
+    const titleDiv = document.createElement('div');
+    titleDiv.id = 'title-container';
+    const titleP = document.createElement('p');
+    const dueDateP = document.createElement('p');
+    const titleSpan = document.createElement('span');
+    const dueDateSpan = document.createElement('span');
+    titleSpan.textContent = 'Title';
+    dueDateSpan.textContent = 'Due Date';
+    titleP.appendChild(titleSpan);
+    dueDateP.appendChild(dueDateSpan)
+    titleDiv.appendChild(titleP);
+    titleDiv.appendChild(dueDateP);
+    toDoList.appendChild(titleDiv);
+
         todos.forEach(todo => {
         if(todo.project === projectName){
             const container = document.createElement('div');
@@ -125,9 +140,9 @@ export const setStyles = () => {
 
        
             const initialKeys = ['title', 'dueDate'];
-            Object.keys(todo)
-                .filter(key => initialKeys.includes(key))
-                .forEach(key => {
+            // Object.keys(todo)
+            //     .filter(key => initialKeys.includes(key))
+                initialKeys.forEach(key => {
                     const value = todo[key];
                     if(todo.hasOwnProperty(key)){
                         const p = document.createElement('p');
@@ -137,28 +152,50 @@ export const setStyles = () => {
                 })
 
             const expandButton = document.createElement('button');
-            expandButton.textContent = '>>>';
+            expandButton.innerHTML = expandIcon;
             expandButton.classList.add('expand-to-do-button');
             container.appendChild(expandButton);
 
             expandButton.addEventListener('click', () => {
                 expandButton.remove();
-                const expandedKeys = ['desc', 'priority', 'notes']
-                Object.keys(todo)
-                    .filter(key => expandedKeys.includes(key))
-                    .forEach(key => {
+                const expandedKeys = ['notes', 'desc', 'priority']
+                // Object.keys(todo)
+                //     .filter(key => expandedKeys.includes(key))
+                    expandedKeys.forEach(key => {
                         const value = todo[key];
                         if(todo.hasOwnProperty(key)){
+                            
                             const p = document.createElement('p');
                             p.textContent = value;
                             deleteButton.insertAdjacentElement('beforebegin', p)
+                            // container.appendChild(p)
                         }
                     })
+                    // const titleContainer = document.querySelector('#title-container');
+                    const notesP = document.createElement('p');
+                    const priorityP = document.createElement('p');
+                    const descP = document.createElement('p');
+                    
+                    const notesSpan = document.createElement('span');
+                    const prioritySpan = document.createElement('span');
+                    const descSpan = document.createElement('span');
+
+                    notesSpan.textContent = 'Notes';
+                    prioritySpan.textContent = 'Priority';
+                    descSpan.textContent = 'Description';
+
+                    notesP.appendChild(notesSpan);
+                    priorityP.appendChild(prioritySpan);
+                    descP.appendChild(descSpan);
+
+                    titleDiv.appendChild(notesP);
+                    titleDiv.appendChild(descP);
+                    titleDiv.appendChild(priorityP);
             })
 
             
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'X';
+            deleteButton.innerHTML = deleteIcon;
 
             deleteButton.dataset.id = todo.id;
             deleteButton.classList.add('delete-btn');

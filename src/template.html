@@ -21,7 +21,7 @@
     <dialog id="delete-project-modal">
         <div>
             <h2>Are you sure you want to delete this project?</h2>
-            <div>
+            <div id="modal-button-container">
                 <button id="confirm-delete-project">Delete</button>
                 <button id="cancel-delete-project">Cancel</button>
             </div>
@@ -31,35 +31,34 @@
     <dialog id="task-modal">
         <div>
             <button class="close-task">X</button>
-            <form action="post">
+            <form id="to-do-form" action="post">
                 <legend><h2>Add Task</h2></legend>
                 <div id="form-input-container">
-                    <div>
-                        <div>
+                        <div id="title-container">
                             <label for="title">Title</label>
                             <input type="text" id="title" required>
                         </div>
-                        <div>
-                            <label for="desc">Description</label>
-                            <textarea name="" id="desc" required></textarea>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
+                        <div id="due-date-container">
                             <label for="due-date">Due Date</label>
                             <input type="text" id="due-date" pattern="/^\d{2}\/\d{2}\/\d{4}$/" required>
                             <p>XX/XX/XXXX</p>
                         </div>
-                        <div>
+                        <div id="notes-container">
+                            <label for="note">Notes</label>
+                            <textarea rows="1" name="" id="note"></textarea>
+                        </div>
+                        <div id="priority-container">
                             <label for="priority">Priority</label>
                             <input type="text" id="priority" required>
                         </div>
-                        <div>
-                            <label for="note">Notes</label>
-                            <textarea name="" id="note"></textarea>
+                        <div id="desc-container">
+                            <label for="desc">Description</label>
+                            <textarea name="" id="desc" required></textarea>
                         </div>
-                    </div>
+
+                        
+                        
+                        
                     
                     
                 </div>
@@ -83,11 +82,12 @@
 
         </div>
 
-        <div>
+        <div id="main-container">
             <h1 id="header">To Do</h1>
             <div>
                 <div id="to-do-container">
-                    <ul id="to-do-list"></ul>
+                    <ul id="to-do-list">
+                    </ul>
                 </div>
                 <button id="task-button">Add Task</button>
             </div>

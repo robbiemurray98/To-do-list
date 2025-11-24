@@ -9,6 +9,10 @@ import { checkProjectValue } from "./DOMhandler";
 import { projectNameError } from "./DOMhandler";
 import { project } from "./project";
 
+// create headers for to dos
+// put priority at the end
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const toDoContainer = document.querySelector('#to-do-list');
 
@@ -25,6 +29,8 @@ projectList.addEventListener('click', (event) => {
     if(event.target.classList.contains('project-list-item')){
         // populate project display
         // event.target.value
+        const header = document.querySelector('#header')
+        // const child = event.target.querySelector('project-list-item');
         if(event.target.textContent === 'Inbox'){
             header.textContent = 'To Do';
         } else {
